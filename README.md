@@ -21,10 +21,7 @@ A full-stack business management system for a multi-branch pulsa operation — h
 
 ```
 apps/
-├── dashboard-web/   → Internal dashboard (React + Vite + TS)
-├── landing/         → Public site (Next.js)
-├── webportal/       → Internal portal (Next.js)
-└── signage/         → Digital signage PWA (Vue 3)
+├── konterku/   → Internal Apps (React + Vite + TS)
 
 workers/
 ├── rekap-bot/       → Transaction tracking bot
