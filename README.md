@@ -51,6 +51,29 @@ packages/
 
 ---
 
+## 📊 GitHub Stats
+
+<!-- STATS:START -->
+**Repos** 11 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,881
+
+_Updated 2026-11-09 18:02 UTC_
+
+| Top repositories | ★ | Language |
+| --- | --: | --- |
+| [HumidityMonitoringRoom](https://github.com/mhmdrojil/HumidityMonitoringRoom) | 0 | C++ |
+| [ESP32AutomaticDrying](https://github.com/mhmdrojil/ESP32AutomaticDrying) — an automatic drying ESP32 using Fuzzy Mamdani model | 0 | C++ |
+| [ironDetector](https://github.com/mhmdrojil/ironDetector) — an iron detector for trash classification using fuzzy mamdani model | 0 | C++ |
+| [pulseDetectorHealth](https://github.com/mhmdrojil/pulseDetectorHealth) | 0 | C++ |
+| [fingerprintLock](https://github.com/mhmdrojil/fingerprintLock) — a fingerprint door lock using bluetooth android | 0 | C++ |
+
+### Languages
+`C++           ` ██████████████████ 100.0%
+<!-- STATS:END -->
+
+_Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
+
+---
+
 ## 📫 Find Me
 
 [![Twitter](https://img.shields.io/badge/@mhmdrojil-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/mhmdrojil)
@@ -59,4 +82,4 @@ packages/
 
 ---
 
-> Most of this wouldn't exist without AI-assisted development — proudly built with Claude by Anthropic.
+> Most of this wouldn't exist without AI-assisted development — proudly built with [opencode](https://opencode.ai).
