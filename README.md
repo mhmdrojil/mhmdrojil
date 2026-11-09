@@ -57,32 +57,25 @@ packages/
 ## 📊 GitHub Stats
 
 <!-- STATS:START -->
-**Repos** 11 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 36
+**Repos** 14 · **Public** 11 · **Private** 3 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,884
 
-_Updated 2026-11-09 18:06 UTC_
+_Updated 2026-11-09 18:17 UTC_
 
-| Top repositories | ★ | Language |
+### Languages
+`TypeScript    ` █████████████████░  95.8%
+`C++           ` █░░░░░░░░░░░░░░░░░   4.1%
+`Python        ` █░░░░░░░░░░░░░░░░░   0.0%
+
+| Recently updated | ★ | Language |
 | --- | --: | --- |
 | [HumidityMonitoringRoom](https://github.com/mhmdrojil/HumidityMonitoringRoom) | 0 | C++ |
 | [ESP32AutomaticDrying](https://github.com/mhmdrojil/ESP32AutomaticDrying) — an automatic drying ESP32 using Fuzzy Mamdani model | 0 | C++ |
 | [ironDetector](https://github.com/mhmdrojil/ironDetector) — an iron detector for trash classification using fuzzy mamdani model | 0 | C++ |
 | [pulseDetectorHealth](https://github.com/mhmdrojil/pulseDetectorHealth) | 0 | C++ |
 | [fingerprintLock](https://github.com/mhmdrojil/fingerprintLock) — a fingerprint door lock using bluetooth android | 0 | C++ |
-
-### Languages
-`C++           ` ██████████████████  99.6%
-`Python        ` █░░░░░░░░░░░░░░░░░   0.4%
 <!-- STATS:END -->
 
 _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
-
----
-
-## 📫 Find Me
-
-[![Twitter](https://img.shields.io/badge/@mhmdrojil-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/mhmdrojil)
-[![Instagram](https://img.shields.io/badge/@mhmdrojil-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://instagram.com/mhmdrojil)
-<a href="https://permatatech.com"><img src="https://permatatech.com/logo.svg" height="20" alt="Permata Tech"> **permatatech.com**</a>
 
 ---
 

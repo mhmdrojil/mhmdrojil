@@ -12,7 +12,11 @@ from datetime import datetime, timezone
 USER = os.environ.get("GH_USER", "mhmdrojil")
 README = "README.md"
 START, END = "<!-- STATS:START -->", "<!-- STATS:END -->"
-TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+TOKEN = (
+    os.environ.get("STATS_TOKEN")
+    or os.environ.get("GITHUB_TOKEN")
+    or os.environ.get("GH_TOKEN")
+)
 
 
 def api(path):
@@ -42,7 +46,12 @@ def main():
     user = api(f"/users/{USER}")
     repos = []
     for page in range(1, 6):
-        chunk = try_api(f"/users/{USER}/repos?per_page=100&page={page}&sort=pushed", [])
+        path = (
+            f"/user/repos?affiliation=owner&visibility=all&sort=pushed&per_page=100&page={page}"
+            if TOKEN
+            else f"/users/{USER}/repos?sort=pushed&per_page=100&page={page}"
+        )
+        chunk = try_api(path, [])
         if not chunk:
             break
         repos += chunk
@@ -50,8 +59,9 @@ def main():
             break
 
     owned = [r for r in repos if not r.get("fork")]
-    stars = sum(r.get("stargazers_count", 0) for r in owned)
-    forks = sum(r.get("forks_count", 0) for r in owned)
+    public = [r for r in owned if not r.get("private")]
+    stars = sum(r.get("stargazers_count", 0) for r in public)
+    forks = sum(r.get("forks_count", 0) for r in public)
     # ponytail: primary language weighted by repo size; swap to /languages per repo if it must be byte-exact
     langs = {}
     for r in owned:
@@ -62,33 +72,35 @@ def main():
     commits = try_api(f"/search/commits?q=author:{USER}&per_page=1", {}).get("total_count")
 
     head = [
-        f"**Repos** {user['public_repos']} · **Stars** {stars} · **Forks** {forks} · "
+        f"**Repos** {len(repos)} · **Public** {len(public)} · **Private** {len(owned) - len(public)} · "
+        f"**Stars** {stars} · **Forks** {forks} · "
         f"**Followers** {user['followers']} · **Following** {user['following']}"
         + (f" · **Commits** {commits:,}" if commits else ""),
         "",
     ]
 
+    rows = [f"_Updated {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC_", ""]
+    if langs:
+        rows.append("### Languages")
+        for name, size in sorted(langs.items(), key=lambda kv: -kv[1])[:6]:
+            pct = size / total_lang * 100
+            rows.append(f"`{name:<14}` {bar(pct)} {pct:5.1f}%")
+        rows.append("")
+
     top = sorted(
-        (r for r in owned if r["name"] != USER),
+        (r for r in public if r["name"] != USER),
         key=lambda r: (r.get("stargazers_count", 0), r.get("pushed_at", "")),
         reverse=True,
     )[:5]
-    rows = [f"_Updated {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC_", ""]
     if top:
-        rows += ["| Top repositories | ★ | Language |", "| --- | --: | --- |"]
+        label = "Top repositories" if top[0].get("stargazers_count") else "Recently updated"
+        rows += [f"| {label} | ★ | Language |", "| --- | --: | --- |"]
         for r in top:
             desc = (r.get("description") or "").replace("|", "\\|").strip()
             if len(desc) > 70:
                 desc = desc[:67] + "..."
             name = f"[{r['name']}]({r['html_url']})" + (f" — {desc}" if desc else "")
             rows.append(f"| {name} | {r.get('stargazers_count', 0)} | {r.get('language') or '—'} |")
-        rows.append("")
-
-    if langs:
-        rows.append("### Languages")
-        for name, size in sorted(langs.items(), key=lambda kv: -kv[1])[:6]:
-            pct = size / total_lang * 100
-            rows.append(f"`{name:<14}` {bar(pct)} {pct:5.1f}%")
         rows.append("")
 
     stats = f"{START}\n" + "\n".join(head + rows).rstrip() + f"\n{END}"
