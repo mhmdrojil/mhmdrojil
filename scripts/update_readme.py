@@ -81,11 +81,15 @@ def main():
 
     rows = [f"_Updated {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC_", ""]
     if langs:
-        rows.append("### Languages")
-        for name, size in sorted(langs.items(), key=lambda kv: -kv[1])[:6]:
-            pct = size / total_lang * 100
-            rows.append(f"`{name:<14}` {bar(pct)} {pct:5.1f}%")
-        rows.append("")
+        top_langs = [
+            (name, size / total_lang * 100)
+            for name, size in sorted(langs.items(), key=lambda kv: -kv[1])[:6]
+        ]
+        rows += ["### Languages", "```"]
+        for name, pct in top_langs:
+            if pct >= 0.1:
+                rows.append(f"{name:<14} {bar(pct)} {pct:5.1f}%")
+        rows += ["```", ""]
 
     top = sorted(
         (r for r in public if r["name"] != USER),
