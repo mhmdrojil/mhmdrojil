@@ -70,6 +70,10 @@ C++            █░░░░░░░░░░░░░░░░░   4.1%
 
 _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
 
+### 📅 Commit calendar
+
+![Commit calendar](./metrics.commits.svg)
+
 ---
 
 > Most of this wouldn't exist without AI-assisted development — proudly built with [opencode](https://opencode.ai).
