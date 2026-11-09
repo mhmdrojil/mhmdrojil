@@ -82,7 +82,7 @@ _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.gi
 
 [![Twitter](https://img.shields.io/badge/@mhmdrojil-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/mhmdrojil)
 [![Instagram](https://img.shields.io/badge/@mhmdrojil-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://instagram.com/mhmdrojil)
-[![Website](https://img.shields.io/badge/permatatech.com-000000?style=flat-square&logo=vercel&logoColor=white)](https://permatatech.com)
+<a href="https://permatatech.com"><img src="https://permatatech.com/logo.svg" height="20" alt="Permata Tech"> **permatatech.com**</a>
 
 ---
 
