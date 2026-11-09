@@ -91,22 +91,6 @@ def main():
                 rows.append(f"{name:<14} {bar(pct)} {pct:5.1f}%")
         rows += ["```", ""]
 
-    top = sorted(
-        (r for r in public if r["name"] != USER),
-        key=lambda r: (r.get("stargazers_count", 0), r.get("pushed_at", "")),
-        reverse=True,
-    )[:5]
-    if top:
-        label = "Top repositories" if top[0].get("stargazers_count") else "Recently updated"
-        rows += [f"| {label} | ★ | Language |", "| --- | --: | --- |"]
-        for r in top:
-            desc = (r.get("description") or "").replace("|", "\\|").strip()
-            if len(desc) > 70:
-                desc = desc[:67] + "..."
-            name = f"[{r['name']}]({r['html_url']})" + (f" — {desc}" if desc else "")
-            rows.append(f"| {name} | {r.get('stargazers_count', 0)} | {r.get('language') or '—'} |")
-        rows.append("")
-
     stats = f"{START}\n" + "\n".join(head + rows).rstrip() + f"\n{END}"
 
     with open(README, encoding="utf-8") as f:

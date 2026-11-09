@@ -57,23 +57,15 @@ packages/
 ## 📊 GitHub Stats
 
 <!-- STATS:START -->
-**Repos** 14 · **Public** 11 · **Private** 3 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,885
+**Repos** 14 · **Public** 11 · **Private** 3 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,886
 
-_Updated 2026-11-09 18:39 UTC_
+_Updated 2026-11-09 18:40 UTC_
 
 ### Languages
 ```
 TypeScript     █████████████████░  95.8%
 C++            █░░░░░░░░░░░░░░░░░   4.1%
 ```
-
-| Recently updated | ★ | Language |
-| --- | --: | --- |
-| [HumidityMonitoringRoom](https://github.com/mhmdrojil/HumidityMonitoringRoom) | 0 | C++ |
-| [ESP32AutomaticDrying](https://github.com/mhmdrojil/ESP32AutomaticDrying) — an automatic drying ESP32 using Fuzzy Mamdani model | 0 | C++ |
-| [ironDetector](https://github.com/mhmdrojil/ironDetector) — an iron detector for trash classification using fuzzy mamdani model | 0 | C++ |
-| [pulseDetectorHealth](https://github.com/mhmdrojil/pulseDetectorHealth) | 0 | C++ |
-| [fingerprintLock](https://github.com/mhmdrojil/fingerprintLock) — a fingerprint door lock using bluetooth android | 0 | C++ |
 <!-- STATS:END -->
 
 _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
