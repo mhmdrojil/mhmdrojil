@@ -54,9 +54,9 @@ packages/
 ## 📊 GitHub Stats
 
 <!-- STATS:START -->
-**Repos** 11 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,881
+**Repos** 11 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 36
 
-_Updated 2026-11-09 18:02 UTC_
+_Updated 2026-11-09 18:06 UTC_
 
 | Top repositories | ★ | Language |
 | --- | --: | --- |
@@ -67,7 +67,8 @@ _Updated 2026-11-09 18:02 UTC_
 | [fingerprintLock](https://github.com/mhmdrojil/fingerprintLock) — a fingerprint door lock using bluetooth android | 0 | C++ |
 
 ### Languages
-`C++           ` ██████████████████ 100.0%
+`C++           ` ██████████████████  99.6%
+`Python        ` █░░░░░░░░░░░░░░░░░   0.4%
 <!-- STATS:END -->
 
 _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
