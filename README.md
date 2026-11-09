@@ -59,7 +59,7 @@ packages/
 <!-- STATS:START -->
 **Repos** 14 · **Public** 11 · **Private** 3 · **Stars** 0 · **Forks** 0 · **Followers** 0 · **Following** 0 · **Commits** 1,888
 
-_Updated 2026-11-09 18:48 UTC_
+_Updated 2026-11-09 18:52 UTC_
 
 ### Languages
 ```
@@ -70,9 +70,9 @@ C++            █░░░░░░░░░░░░░░░░░   4.1%
 
 _Refreshed automatically every day by [`.github/workflows/readme-stats.yml`](.github/workflows/readme-stats.yml)._
 
-### 📅 Commit calendar
+### 📅 At a glance
 
-![Commit calendar](./metrics.commits.svg)
+![Total commits](assets/stats-total-commits.svg) ![Current streak](assets/stats-streak.svg) ![Commits per day](assets/stats-commits-day.svg)
 
 ---
 

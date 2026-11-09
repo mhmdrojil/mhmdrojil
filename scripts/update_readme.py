@@ -7,7 +7,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 USER = os.environ.get("GH_USER", "mhmdrojil")
 README = "README.md"
@@ -35,6 +35,85 @@ def try_api(path, default=None):
     except (urllib.error.URLError, TimeoutError, ValueError) as e:
         print(f"warn: {path}: {e}", file=sys.stderr)
         return default
+
+
+def graphql(query, variables):
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=json.dumps({"query": query, "variables": variables}).encode(),
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+            "Content-Type": "application/json",
+            "User-Agent": USER,
+        },
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+
+
+def calendar(days=365):
+    """Contribution days for the last N days, oldest first."""
+    query = """
+    query($login: String!, $from: DateTime!, $to: DateTime!) {
+      user(login: $login) {
+        contributionsCollection(from: $from, to: $to) {
+          totalCommitContributions
+          restrictedContributionsCount
+          contributionCalendar {
+            weeks { contributionDays { date contributionCount } }
+          }
+        }
+      }
+    }"""
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=days)
+    try:
+        data = graphql(
+            query,
+            {
+                "login": USER,
+                "from": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "to": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            },
+        )["data"]["user"]["contributionsCollection"]
+    except (urllib.error.URLError, TimeoutError, ValueError, KeyError, TypeError) as e:
+        print(f"warn: graphql: {e}", file=sys.stderr)
+        return None, None
+    flat = [d for w in data["contributionCalendar"]["weeks"] for d in w["contributionDays"]]
+    return data["totalCommitContributions"] + data["restrictedContributionsCount"], flat
+
+
+def streak(days):
+    """Current consecutive days with at least one contribution."""
+    counts = {d["date"]: d["contributionCount"] for d in days}
+    today = datetime.now(timezone.utc).date()
+    cursor = today if counts.get(today.isoformat(), 0) else today - timedelta(days=1)
+    n = 0
+    while counts.get(cursor.isoformat(), 0) > 0:
+        n += 1
+        cursor -= timedelta(days=1)
+    return n
+
+
+def card(path, label, value, caption, accent):
+    def esc(s):
+        return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="200" height="112" viewBox="0 0 200 112" role="img" aria-label="{esc(label)}: {esc(value)}">
+  <style>
+    .c{{fill:#f6f8fa;stroke:#d1d9e0;stroke-width:1}}
+    .l{{font:600 11px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#59636e;letter-spacing:.08em}}
+    .v{{font:700 32px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:{accent}}}
+    .s{{font:400 11px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#818b98}}
+  </style>
+  <rect class="c" x=".5" y=".5" width="199" height="111" rx="10"/>
+  <text class="l" x="16" y="30">{esc(label).upper()}</text>
+  <text class="v" x="16" y="70">{esc(value)}</text>
+  <text class="s" x="16" y="92">{esc(caption)}</text>
+</svg>
+"""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(svg)
 
 
 def bar(pct, width=18):
@@ -70,6 +149,14 @@ def main():
     total_lang = sum(langs.values()) or 1
 
     commits = try_api(f"/search/commits?q=author:{USER}&per_page=1", {}).get("total_count")
+    year_commits, days = calendar()
+    os.makedirs("assets", exist_ok=True)
+    if commits:
+        card("assets/stats-total-commits.svg", "Total commits", f"{commits:,}", "all time", "#1f6feb")
+    if year_commits is not None:
+        per_day = year_commits / max(len(days), 1)
+        card("assets/stats-streak.svg", "Current streak", f"{streak(days)} days", "consecutive active days", "#bf8700")
+        card("assets/stats-commits-day.svg", "Commits / day", f"{per_day:.1f}", f"{year_commits:,} in the last year", "#1a7f37")
 
     head = [
         f"**Repos** {len(repos)} · **Public** {len(public)} · **Private** {len(owned) - len(public)} · "

@@ -19,21 +19,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Commit calendar diagram (private contributions included via STATS_TOKEN)
-      - uses: lowlighter/metrics@v3.34
-        with:
-          token: ${{ secrets.STATS_TOKEN }}
-          user: mhmdrojil
-          filename: metrics.commits.svg
-          output_action: none
-          base: ""
-          config_timezone: Asia/Makassar
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-
-      - name: Move rendered calendar into repo
-        run: sudo mv /metrics_renders/metrics.commits.svg . && sudo chown "$USER" metrics.commits.svg
-
       - run: python scripts/update_readme.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
